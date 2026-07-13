@@ -1,0 +1,33 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+    open: false,
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 4173,
+    open: false,
+  },
+  build: {
+    sourcemap: false,
+    reportCompressedSize: false,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) return 'vendor-three';
+            if (id.includes('react')) return 'vendor-react';
+            if (id.includes('@react-three')) return 'vendor-r3f';
+            return 'vendor';
+          }
+        },
+      },
+    },
+  },
+});
