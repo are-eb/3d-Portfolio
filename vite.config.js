@@ -17,17 +17,5 @@ export default defineConfig({
     sourcemap: false,
     reportCompressedSize: false,
     chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('three')) return 'vendor-three';
-            if (id.includes('react')) return 'vendor-react';
-            if (id.includes('@react-three')) return 'vendor-r3f';
-            return 'vendor';
-          }
-        },
-      },
-    },
   },
 });
